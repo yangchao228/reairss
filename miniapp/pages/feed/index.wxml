@@ -1,0 +1,41 @@
+<view class="page {{themeClass}}">
+  <topbar title="阅读" nav="{{nav}}" rightText="{{rightText}}" bind:righttap="clearSourceFilter"></topbar>
+
+  <view class="sheet">
+    <view class="sheet__inner">
+      <view class="chip-row">
+        <chip
+          wx:for="{{timeRanges}}"
+          wx:key="value"
+          text="{{item.label}}"
+          value="{{item.value}}"
+          selected="{{item.value === timeRange}}"
+          bind:change="onTimeRangeChange"
+        />
+      </view>
+
+      <view wx:if="{{sourceName}}" style="height: 10px;"></view>
+      <view wx:if="{{sourceName}}" class="meta line1">筛选：{{sourceName}}</view>
+    </view>
+
+    <view class="divider"></view>
+
+    <empty-state
+      wx:if="{{showEmptyNoSubs}}"
+      title="还没有订阅任何源"
+      desc="先去找源订阅几个常看的站点。"
+      ctaText="去找源"
+      bind:cta="goDiscover"
+    />
+
+    <empty-state wx:elif="{{showEmptyNoUpdates}}" title="暂无更新" desc="在当前时间范围内没有新内容。" />
+
+    <view wx:else class="list">
+      <feed-item wx:for="{{items}}" wx:key="id" item="{{item}}" bind:tapitem="onTapItem" />
+    </view>
+
+    <view wx:if="{{showFooter}}" class="divider"></view>
+    <view wx:if="{{showFooter && loadingMore}}" class="sheet__inner--tight meta center">加载中…</view>
+    <view wx:if="{{showFooter && !hasMore && !loadingMore}}" class="sheet__inner--tight meta center">没有更多了</view>
+  </view>
+</view>

@@ -1,0 +1,11 @@
+<view class="page {{themeClass}}">
+  <topbar title="源站" nav="{{nav}}" showBack="{{true}}"></topbar>
+
+  <view wx:if="{{!url}}" class="sheet">
+    <view class="sheet__inner">
+      <view class="meta">URL 为空，无法打开。</view>
+    </view>
+  </view>
+
+  <web-view wx:else src="{{url}}"></web-view>
+</view>

@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/feed/index",
+    "pages/discover/index",
+    "pages/subscriptions/index",
+    "pages/profile/index",
+    "pages/content/index",
+    "pages/redirect/index",
+    "pages/webview/index"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundTextStyle": "light",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#6B6B6B",
+    "selectedColor": "#191919",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/feed/index",
+        "text": "阅读",
+        "iconPath": "assets/tab/blank.png",
+        "selectedIconPath": "assets/tab/blank.png"
+      },
+      {
+        "pagePath": "pages/discover/index",
+        "text": "找源",
+        "iconPath": "assets/tab/blank.png",
+        "selectedIconPath": "assets/tab/blank.png"
+      },
+      {
+        "pagePath": "pages/subscriptions/index",
+        "text": "订阅",
+        "iconPath": "assets/tab/blank.png",
+        "selectedIconPath": "assets/tab/blank.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "assets/tab/blank.png",
+        "selectedIconPath": "assets/tab/blank.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
+

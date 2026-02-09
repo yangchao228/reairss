@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "topbar": "/components/topbar/topbar",
+    "chip": "/components/chip/chip",
+    "source-item": "/components/source-item/source-item",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}
+

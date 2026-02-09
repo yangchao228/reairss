@@ -1,0 +1,30 @@
+.source-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.source-row__main {
+  flex: 1;
+}
+
+.source-row__title {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+.source-row__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.source-row__btn {
+  height: 40px;
+  padding: 0 16px;
+  min-width: 88px;
+  border-radius: 12px;
+}

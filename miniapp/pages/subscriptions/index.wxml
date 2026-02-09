@@ -1,0 +1,24 @@
+<view class="page {{themeClass}}">
+  <topbar title="订阅" nav="{{nav}}"></topbar>
+
+  <view class="sheet">
+    <empty-state
+      wx:if="{{showEmpty}}"
+      title="还没有订阅"
+      desc="去找源订阅几个常看的站点。"
+      ctaText="去找源"
+      bind:cta="goDiscover"
+    />
+
+    <view wx:else class="list">
+      <source-item
+        wx:for="{{subscribedSources}}"
+        wx:key="id"
+        source="{{item}}"
+        subscribed="{{true}}"
+        bind:tapitem="openSourceFeed"
+        bind:toggle="onToggleSubscribe"
+      />
+    </view>
+  </view>
+</view>

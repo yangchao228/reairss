@@ -1,0 +1,10 @@
+<view class="empty">
+  <view class="h1">{{title}}</view>
+  <view style="height: 8px;"></view>
+  <view class="meta">{{desc}}</view>
+  <view style="height: 16px;"></view>
+  <view wx:if="{{ctaText}}" class="btn btn--primary" bindtap="onCtaTap">
+    <text>{{ctaText}}</text>
+  </view>
+</view>
+

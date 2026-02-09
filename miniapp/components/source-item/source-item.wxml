@@ -1,0 +1,13 @@
+<view class="list-item pressable source-row" bindtap="onTap">
+  <view class="source-row__main">
+    <view class="source-row__title line1">{{source.name}}</view>
+    <view style="height: 6px;"></view>
+    <view class="meta line1">{{source.desc}}</view>
+  </view>
+
+  <view class="source-row__actions">
+    <view class="btn source-row__btn {{subscribed ? 'btn--muted' : 'btn--primary'}}" catchtap="onToggle">
+      <text>{{subscribed ? "已订阅" : "订阅"}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "topbar": "/components/topbar/topbar",
+    "source-item": "/components/source-item/source-item",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}
+

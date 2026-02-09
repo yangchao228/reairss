@@ -1,0 +1,27 @@
+<view class="page {{themeClass}}">
+  <topbar title="中转确认" nav="{{nav}}" showBack="{{true}}"></topbar>
+
+  <view class="sheet">
+    <view class="sheet__inner">
+      <view class="title">即将访问</view>
+      <view style="height: 8px;"></view>
+      <view class="h1 line1">{{domain}}</view>
+      <view style="height: 12px;"></view>
+      <view class="meta">
+        为保证安全与符合审核要求，需要你手动确认后再继续访问源站。请留意页面内容与风险提示。
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="sheet__inner">
+      <view class="btn btn--primary" style="width: 100%;" bindtap="continueVisit">
+        <text>继续访问</text>
+      </view>
+      <view style="height: 10px;"></view>
+      <view class="btn btn--ghost" style="width: 100%;" bindtap="goBack">
+        <text>返回</text>
+      </view>
+    </view>
+  </view>
+</view>

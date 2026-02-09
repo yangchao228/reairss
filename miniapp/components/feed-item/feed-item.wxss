@@ -1,0 +1,13 @@
+.feed-title {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+.feed-summary {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text2);
+}
+

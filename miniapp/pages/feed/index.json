@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "topbar": "/components/topbar/topbar",
+    "chip": "/components/chip/chip",
+    "feed-item": "/components/feed-item/feed-item",
+    "empty-state": "/components/empty-state/empty-state"
+  },
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 120
+}
+

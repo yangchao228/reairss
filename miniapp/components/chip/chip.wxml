@@ -1,0 +1,4 @@
+<view class="chip {{selected ? 'chip--selected' : ''}}" bindtap="onTap">
+  <text>{{text}}</text>
+</view>
+

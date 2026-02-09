@@ -1,0 +1,49 @@
+<view class="page {{themeClass}}">
+  <topbar title="我的" nav="{{nav}}"></topbar>
+
+  <view class="sheet">
+    <view class="sheet__inner">
+      <view class="title">主题</view>
+    </view>
+    <view class="divider"></view>
+    <radio-group bindchange="onThemeModeChange">
+      <view class="list">
+        <label class="list-item pressable row">
+          <text class="body">跟随系统</text>
+          <radio value="system" checked="{{themeMode === 'system'}}" />
+        </label>
+        <label class="list-item pressable row">
+          <text class="body">浅色</text>
+          <radio value="light" checked="{{themeMode === 'light'}}" />
+        </label>
+        <label class="list-item pressable row">
+          <text class="body">暗色</text>
+          <radio value="dark" checked="{{themeMode === 'dark'}}" />
+        </label>
+      </view>
+    </radio-group>
+  </view>
+
+  <view style="height: 12px;"></view>
+
+  <view class="sheet">
+    <view class="list">
+      <view class="list-item pressable" bindtap="openUserAgreement">
+        <view class="title">用户协议</view>
+        <view style="height: 6px;"></view>
+        <view class="meta">查看协议内容（原型占位）</view>
+      </view>
+      <view class="list-item pressable" bindtap="openPrivacyPolicy">
+        <view class="title">隐私协议</view>
+        <view style="height: 6px;"></view>
+        <view class="meta">查看协议内容（原型占位）</view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 12px;"></view>
+
+  <view class="sheet">
+    <view class="sheet__inner--tight meta center">reairss miniapp prototype</view>
+  </view>
+</view>

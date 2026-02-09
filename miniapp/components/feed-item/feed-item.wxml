@@ -1,0 +1,7 @@
+<view class="list-item pressable" bindtap="onTap">
+  <view class="feed-title line2">{{item.title}}</view>
+  <view style="height: 10px;"></view>
+  <view class="meta line1">{{item.source_name}} · {{item.published_ago}}</view>
+  <view style="height: 12px;"></view>
+  <view class="feed-summary line3">{{item.raw_summary}}</view>
+</view>
