@@ -1,57 +1,770 @@
 {
-  "name": "Notion Minimal",
-  "principles": [
-    "极简排版，低噪音低层级",
-    "无阴影，用分割线与留白建立层级",
-    "整行可点，降低操作门槛",
-    "适合长时间阅读（字号/行高/对比度克制）"
-  ],
-  "color": {
+  "$schema": "https://schemas.opendesign.dev/v1/tokens.json",
+  "name": "RSS Reader - Notion Style",
+  "description": "Design tokens for RSS reader miniapp with Notion minimalist style",
+  "version": "1.0.0",
+  
+  "colors": {
     "light": {
-      "bg": "#F7F7F5",
-      "surface": "#FFFFFF",
-      "text": "#191919",
-      "text2": "#6B6B6B",
-      "divider": "#ECECEA",
-      "border": "#E6E6E3",
-      "primary": "#2F80ED",
-      "danger": "#E5484D",
-      "press": "rgba(0,0,0,0.035)"
+      "bg": {
+        "value": "#F7F7F5",
+        "type": "color",
+        "description": "页面背景色，用于整个页面的底色"
+      },
+      "surface": {
+        "value": "#FFFFFF",
+        "type": "color",
+        "description": "表面色，用于卡片、列表项背景"
+      },
+      "text": {
+        "value": "#191919",
+        "type": "color",
+        "description": "主文本颜色，用于标题、正文"
+      },
+      "text2": {
+        "value": "#6B6B6B",
+        "type": "color",
+        "description": "次要文本颜色，用于辅助信息、说明文字"
+      },
+      "divider": {
+        "value": "#ECECEA",
+        "type": "color",
+        "description": "分割线颜色"
+      },
+      "border": {
+        "value": "#E6E6E3",
+        "type": "color",
+        "description": "边框颜色"
+      },
+      "primary": {
+        "value": "#2F80ED",
+        "type": "color",
+        "description": "主色，用于按钮、链接、选中状态"
+      },
+      "primaryLight": {
+        "value": "rgba(47, 128, 237, 0.1)",
+        "type": "color",
+        "description": "主色浅色背景，用于 Chip 选中态"
+      },
+      "danger": {
+        "value": "#E5484D",
+        "type": "color",
+        "description": "危险/错误色"
+      },
+      "white": {
+        "value": "#FFFFFF",
+        "type": "color",
+        "description": "纯白色，用于按钮文字等"
+      },
+      "black": {
+        "value": "#000000",
+        "type": "color",
+        "description": "纯黑色"
+      },
+      "overlay": {
+        "value": "rgba(0, 0, 0, 0.5)",
+        "type": "color",
+        "description": "蒙层颜色，用于弹窗背景"
+      }
     },
     "dark": {
-      "bg": "#0F0F0F",
-      "surface": "#171717",
-      "text": "#EDEDED",
-      "text2": "#A3A3A3",
-      "divider": "#242424",
-      "border": "#2A2A2A",
-      "primary": "#60A5FA",
-      "danger": "#FB7185",
-      "press": "rgba(255,255,255,0.07)"
+      "bg": {
+        "value": "#0F0F0F",
+        "type": "color",
+        "description": "页面背景色（暗色模式）"
+      },
+      "surface": {
+        "value": "#171717",
+        "type": "color",
+        "description": "表面色（暗色模式）"
+      },
+      "text": {
+        "value": "#EDEDED",
+        "type": "color",
+        "description": "主文本颜色（暗色模式）"
+      },
+      "text2": {
+        "value": "#A3A3A3",
+        "type": "color",
+        "description": "次要文本颜色（暗色模式）"
+      },
+      "divider": {
+        "value": "#242424",
+        "type": "color",
+        "description": "分割线颜色（暗色模式）"
+      },
+      "border": {
+        "value": "#2A2A2A",
+        "type": "color",
+        "description": "边框颜色（暗色模式）"
+      },
+      "primary": {
+        "value": "#60A5FA",
+        "type": "color",
+        "description": "主色（暗色模式）"
+      },
+      "primaryLight": {
+        "value": "rgba(96, 165, 250, 0.1)",
+        "type": "color",
+        "description": "主色浅色背景（暗色模式）"
+      },
+      "danger": {
+        "value": "#FB7185",
+        "type": "color",
+        "description": "危险/错误色（暗色模式）"
+      },
+      "white": {
+        "value": "#FFFFFF",
+        "type": "color",
+        "description": "纯白色"
+      },
+      "black": {
+        "value": "#000000",
+        "type": "color",
+        "description": "纯黑色"
+      },
+      "overlay": {
+        "value": "rgba(0, 0, 0, 0.7)",
+        "type": "color",
+        "description": "蒙层颜色（暗色模式）"
+      }
     }
   },
+  
   "typography": {
-    "pageTitle": { "size": 18, "lineHeight": 24, "weight": 600 },
-    "listTitle": { "size": 18, "lineHeight": 26, "weight": 600 },
-    "body": { "size": 14, "lineHeight": 20, "weight": 400 },
-    "meta": { "size": 12, "lineHeight": 16, "weight": 400 }
+    "fontFamily": {
+      "default": {
+        "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
+        "type": "fontFamily",
+        "description": "默认字体栈，优先使用系统字体"
+      },
+      "serif": {
+        "value": "Georgia, 'Times New Roman', 'Songti SC', serif",
+        "type": "fontFamily",
+        "description": "衬线字体，用于阅读模式（可选）"
+      }
+    },
+    "fontSize": {
+      "xs": {
+        "value": "11px",
+        "type": "fontSize",
+        "description": "极小字号，用于标签"
+      },
+      "sm": {
+        "value": "12px",
+        "type": "fontSize",
+        "description": "小字号，用于辅助信息、时间"
+      },
+      "base": {
+        "value": "14px",
+        "type": "fontSize",
+        "description": "基础字号，用于正文、摘要"
+      },
+      "md": {
+        "value": "15px",
+        "type": "fontSize",
+        "description": "中等字号，用于设置项"
+      },
+      "lg": {
+        "value": "16px",
+        "type": "fontSize",
+        "description": "大字号，用于列表标题"
+      },
+      "xl": {
+        "value": "18px",
+        "type": "fontSize",
+        "description": "特大字号，用于页面标题"
+      },
+      "2xl": {
+        "value": "20px",
+        "type": "fontSize",
+        "description": "超大字号，用于内容详情标题"
+      }
+    },
+    "lineHeight": {
+      "tight": {
+        "value": "16px",
+        "type": "lineHeight",
+        "description": "紧凑行高，用于辅助信息"
+      },
+      "snug": {
+        "value": "18px",
+        "type": "lineHeight",
+        "description": "略紧行高"
+      },
+      "normal": {
+        "value": "20px",
+        "type": "lineHeight",
+        "description": "正常行高，用于正文"
+      },
+      "relaxed": {
+        "value": "22px",
+        "type": "lineHeight",
+        "description": "宽松行高，用于标题"
+      },
+      "loose": {
+        "value": "24px",
+        "type": "lineHeight",
+        "description": "更宽松行高"
+      },
+      "extraLoose": {
+        "value": "26px",
+        "type": "lineHeight",
+        "description": "最宽松行高，用于详情页正文"
+      },
+      "2xl": {
+        "value": "28px",
+        "type": "lineHeight",
+        "description": "超大行高，用于大标题"
+      }
+    },
+    "fontWeight": {
+      "regular": {
+        "value": "400",
+        "type": "fontWeight",
+        "description": "常规字重，用于正文、辅助信息"
+      },
+      "medium": {
+        "value": "500",
+        "type": "fontWeight",
+        "description": "中等字重，用于列表标题、按钮"
+      },
+      "semibold": {
+        "value": "600",
+        "type": "fontWeight",
+        "description": "半粗字重，用于页面标题、强调文字"
+      },
+      "bold": {
+        "value": "700",
+        "type": "fontWeight",
+        "description": "粗字重，用于特别强调（较少使用）"
+      }
+    },
+    "letterSpacing": {
+      "tight": {
+        "value": "-0.3px",
+        "type": "letterSpacing",
+        "description": "紧凑字距，用于大标题"
+      },
+      "normal": {
+        "value": "0",
+        "type": "letterSpacing",
+        "description": "正常字距"
+      },
+      "wide": {
+        "value": "0.5px",
+        "type": "letterSpacing",
+        "description": "宽松字距，用于小型大写字母"
+      }
+    }
   },
+  
   "spacing": {
-    "pagePaddingX": 16,
-    "sectionPaddingY": 14,
-    "gap8": 8,
-    "gap12": 12,
-    "gap16": 16,
-    "gap24": 24
+    "0": {
+      "value": "0px",
+      "type": "spacing"
+    },
+    "1": {
+      "value": "4px",
+      "type": "spacing",
+      "description": "最小间距"
+    },
+    "2": {
+      "value": "8px",
+      "type": "spacing",
+      "description": "基础间距"
+    },
+    "3": {
+      "value": "12px",
+      "type": "spacing",
+      "description": "中等间距"
+    },
+    "4": {
+      "value": "16px",
+      "type": "spacing",
+      "description": "标准间距，用于页边距"
+    },
+    "5": {
+      "value": "20px",
+      "type": "spacing",
+      "description": "较大间距"
+    },
+    "6": {
+      "value": "24px",
+      "type": "spacing",
+      "description": "大间距"
+    },
+    "8": {
+      "value": "32px",
+      "type": "spacing",
+      "description": "超大间距"
+    },
+    "10": {
+      "value": "40px",
+      "type": "spacing",
+      "description": "特大间距"
+    },
+    "12": {
+      "value": "48px",
+      "type": "spacing",
+      "description": "极大间距"
+    },
+    "15": {
+      "value": "60px",
+      "type": "spacing",
+      "description": "TabBar 预留高度"
+    }
   },
-  "radius": {
-    "button": 12,
-    "chip": 999,
-    "search": 12
+  
+  "borderRadius": {
+    "none": {
+      "value": "0px",
+      "type": "borderRadius"
+    },
+    "xs": {
+      "value": "4px",
+      "type": "borderRadius",
+      "description": "极小圆角，用于标签"
+    },
+    "sm": {
+      "value": "6px",
+      "type": "borderRadius",
+      "description": "小圆角"
+    },
+    "base": {
+      "value": "8px",
+      "type": "borderRadius",
+      "description": "基础圆角"
+    },
+    "md": {
+      "value": "12px",
+      "type": "borderRadius",
+      "description": "中等圆角，用于按钮、输入框"
+    },
+    "lg": {
+      "value": "16px",
+      "type": "borderRadius",
+      "description": "大圆角，用于卡片"
+    },
+    "xl": {
+      "value": "20px",
+      "type": "borderRadius",
+      "description": "超大圆角"
+    },
+    "2xl": {
+      "value": "24px",
+      "type": "borderRadius",
+      "description": "特大圆角"
+    },
+    "full": {
+      "value": "999px",
+      "type": "borderRadius",
+      "description": "全圆角，用于 Chip"
+    }
   },
-  "component": {
-    "minTapHeight": 44,
-    "listItemPaddingY": 18,
-    "listItemPaddingX": 16
+  
+  "borderWidth": {
+    "none": {
+      "value": "0px",
+      "type": "borderWidth"
+    },
+    "thin": {
+      "value": "1px",
+      "type": "borderWidth",
+      "description": "标准边框宽度"
+    },
+    "medium": {
+      "value": "2px",
+      "type": "borderWidth",
+      "description": "中等边框宽度，用于强调"
+    }
+  },
+  
+  "shadow": {
+    "none": {
+      "value": "none",
+      "type": "boxShadow",
+      "description": "无阴影（Notion 风格默认）"
+    },
+    "sm": {
+      "value": "0 1px 3px rgba(0, 0, 0, 0.04)",
+      "type": "boxShadow",
+      "description": "微弱阴影（浅色模式卡片可选）"
+    },
+    "base": {
+      "value": "0 2px 8px rgba(0, 0, 0, 0.06)",
+      "type": "boxShadow",
+      "description": "基础阴影（浅色模式）"
+    },
+    "md": {
+      "value": "0 4px 12px rgba(0, 0, 0, 0.08)",
+      "type": "boxShadow",
+      "description": "中等阴影（浅色模式悬停）"
+    },
+    "lg": {
+      "value": "0 8px 24px rgba(0, 0, 0, 0.12)",
+      "type": "boxShadow",
+      "description": "大阴影（浅色模式弹窗）"
+    },
+    "dark": {
+      "sm": {
+        "value": "0 1px 3px rgba(255, 255, 255, 0.02)",
+        "type": "boxShadow",
+        "description": "微弱阴影（暗色模式）"
+      },
+      "base": {
+        "value": "0 2px 8px rgba(255, 255, 255, 0.03)",
+        "type": "boxShadow",
+        "description": "基础阴影（暗色模式）"
+      },
+      "md": {
+        "value": "0 4px 12px rgba(255, 255, 255, 0.05)",
+        "type": "boxShadow",
+        "description": "中等阴影（暗色模式）"
+      }
+    }
+  },
+  
+  "opacity": {
+    "0": {
+      "value": "0",
+      "type": "opacity"
+    },
+    "10": {
+      "value": "0.1",
+      "type": "opacity"
+    },
+    "30": {
+      "value": "0.3",
+      "type": "opacity",
+      "description": "用于禁用状态、占位图标"
+    },
+    "50": {
+      "value": "0.5",
+      "type": "opacity",
+      "description": "用于蒙层"
+    },
+    "60": {
+      "value": "0.6",
+      "type": "opacity",
+      "description": "用于已读状态"
+    },
+    "70": {
+      "value": "0.7",
+      "type": "opacity"
+    },
+    "80": {
+      "value": "0.8",
+      "type": "opacity"
+    },
+    "90": {
+      "value": "0.9",
+      "type": "opacity"
+    },
+    "100": {
+      "value": "1",
+      "type": "opacity"
+    }
+  },
+  
+  "zIndex": {
+    "base": {
+      "value": "1",
+      "type": "zIndex",
+      "description": "基础层级"
+    },
+    "dropdown": {
+      "value": "10",
+      "type": "zIndex",
+      "description": "下拉菜单"
+    },
+    "sticky": {
+      "value": "10",
+      "type": "zIndex",
+      "description": "吸顶元素"
+    },
+    "fixed": {
+      "value": "100",
+      "type": "zIndex",
+      "description": "固定定位元素（TabBar）"
+    },
+    "modal": {
+      "value": "1000",
+      "type": "zIndex",
+      "description": "弹窗"
+    },
+    "toast": {
+      "value": "10000",
+      "type": "zIndex",
+      "description": "Toast 提示"
+    }
+  },
+  
+  "duration": {
+    "instant": {
+      "value": "0ms",
+      "type": "duration"
+    },
+    "fast": {
+      "value": "100ms",
+      "type": "duration",
+      "description": "快速动画"
+    },
+    "normal": {
+      "value": "150ms",
+      "type": "duration",
+      "description": "正常动画速度"
+    },
+    "slow": {
+      "value": "200ms",
+      "type": "duration",
+      "description": "慢速动画"
+    },
+    "slower": {
+      "value": "300ms",
+      "type": "duration",
+      "description": "更慢动画"
+    }
+  },
+  
+  "easing": {
+    "linear": {
+      "value": "linear",
+      "type": "cubicBezier"
+    },
+    "ease": {
+      "value": "ease",
+      "type": "cubicBezier"
+    },
+    "easeIn": {
+      "value": "ease-in",
+      "type": "cubicBezier"
+    },
+    "easeOut": {
+      "value": "ease-out",
+      "type": "cubicBezier"
+    },
+    "easeInOut": {
+      "value": "ease-in-out",
+      "type": "cubicBezier"
+    }
+  },
+  
+  "size": {
+    "touchTarget": {
+      "min": {
+        "value": "44px",
+        "type": "sizing",
+        "description": "最小触控目标尺寸"
+      }
+    },
+    "topBar": {
+      "height": {
+        "value": "44px",
+        "type": "sizing",
+        "description": "顶部导航栏高度"
+      }
+    },
+    "tabBar": {
+      "height": {
+        "value": "50px",
+        "type": "sizing",
+        "description": "底部标签栏高度"
+      }
+    },
+    "chip": {
+      "height": {
+        "value": "32px",
+        "type": "sizing",
+        "description": "Chip 高度"
+      }
+    },
+    "button": {
+      "sm": {
+        "value": "32px",
+        "type": "sizing",
+        "description": "小按钮高度"
+      },
+      "base": {
+        "value": "44px",
+        "type": "sizing",
+        "description": "标准按钮高度"
+      },
+      "lg": {
+        "value": "48px",
+        "type": "sizing",
+        "description": "大按钮高度"
+      }
+    },
+    "input": {
+      "height": {
+        "value": "40px",
+        "type": "sizing",
+        "description": "输入框高度"
+      }
+    },
+    "feedItem": {
+      "minHeight": {
+        "value": "76px",
+        "type": "sizing",
+        "description": "FeedItem 最小高度"
+      },
+      "preferredHeight": {
+        "value": "88px",
+        "type": "sizing",
+        "description": "FeedItem 推荐高度"
+      }
+    },
+    "sourceItem": {
+      "minHeight": {
+        "value": "88px",
+        "type": "sizing",
+        "description": "SourceItem 最小高度"
+      }
+    },
+    "icon": {
+      "sm": {
+        "value": "16px",
+        "type": "sizing"
+      },
+      "base": {
+        "value": "20px",
+        "type": "sizing"
+      },
+      "md": {
+        "value": "24px",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "32px",
+        "type": "sizing"
+      },
+      "xl": {
+        "value": "48px",
+        "type": "sizing"
+      },
+      "2xl": {
+        "value": "56px",
+        "type": "sizing"
+      }
+    },
+    "avatar": {
+      "sm": {
+        "value": "24px",
+        "type": "sizing"
+      },
+      "base": {
+        "value": "32px",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "40px",
+        "type": "sizing"
+      }
+    }
+  },
+  
+  "semantic": {
+    "text": {
+      "pageTitle": {
+        "fontSize": {
+          "value": "{typography.fontSize.xl}",
+          "type": "fontSize"
+        },
+        "lineHeight": {
+          "value": "{typography.lineHeight.loose}",
+          "type": "lineHeight"
+        },
+        "fontWeight": {
+          "value": "{typography.fontWeight.semibold}",
+          "type": "fontWeight"
+        }
+      },
+      "listTitle": {
+        "fontSize": {
+          "value": "{typography.fontSize.lg}",
+          "type": "fontSize"
+        },
+        "lineHeight": {
+          "value": "{typography.lineHeight.relaxed}",
+          "type": "lineHeight"
+        },
+        "fontWeight": {
+          "value": "{typography.fontWeight.medium}",
+          "type": "fontWeight"
+        }
+      },
+      "body": {
+        "fontSize": {
+          "value": "{typography.fontSize.base}",
+          "type": "fontSize"
+        },
+        "lineHeight": {
+          "value": "{typography.lineHeight.normal}",
+          "type": "lineHeight"
+        },
+        "fontWeight": {
+          "value": "{typography.fontWeight.regular}",
+          "type": "fontWeight"
+        }
+      },
+      "caption": {
+        "fontSize": {
+          "value": "{typography.fontSize.sm}",
+          "type": "fontSize"
+        },
+        "lineHeight": {
+          "value": "{typography.lineHeight.tight}",
+          "type": "lineHeight"
+        },
+        "fontWeight": {
+          "value": "{typography.fontWeight.regular}",
+          "type": "fontWeight"
+        }
+      }
+    }
+  },
+  
+  "layout": {
+    "pageMargin": {
+      "value": "16px",
+      "type": "spacing",
+      "description": "页面左右边距"
+    },
+    "safeAreaBottom": {
+      "value": "60px",
+      "type": "spacing",
+      "description": "底部安全区域（为 TabBar 预留）"
+    },
+    "maxWidth": {
+      "content": {
+        "value": "640px",
+        "type": "sizing",
+        "description": "内容最大宽度（阅读模式）"
+      },
+      "modal": {
+        "value": "320px",
+        "type": "sizing",
+        "description": "弹窗最大宽度"
+      }
+    }
+  },
+  
+  "breakpoints": {
+    "xs": {
+      "value": "375px",
+      "type": "sizing",
+      "description": "小屏手机（iPhone SE）"
+    },
+    "sm": {
+      "value": "414px",
+      "type": "sizing",
+      "description": "标准手机（iPhone 11 Pro Max）"
+    },
+    "md": {
+      "value": "768px",
+      "type": "sizing",
+      "description": "平板（iPad）"
+    }
   }
 }

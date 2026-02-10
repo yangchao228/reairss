@@ -1,8 +1,8 @@
-<view class="list-item pressable source-row" bindtap="onTap">
+<view class="list-item pressable source-row source-item" bindtap="onTap">
   <view class="source-row__main">
     <view class="source-row__title line1">{{source.name}}</view>
     <view style="height: 6px;"></view>
-    <view class="meta line1">{{source.desc}}</view>
+    <view class="meta line2">{{source.desc}}</view>
   </view>
 
   <view class="source-row__actions">
