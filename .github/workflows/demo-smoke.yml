@@ -1,0 +1,61 @@
+name: Demo Smoke
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+jobs:
+  demo-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate Python files
+        run: |
+          python -m compileall app
+          python -m py_compile scripts/demo_smoke.py
+
+      - name: Build demo image
+        run: docker build -t reairss-demo-ci .
+
+      - name: Start demo backend
+        run: |
+          mkdir -p /tmp/reairss-demo-data
+          rm -f /tmp/reairss-demo-data/app.db
+          docker run -d --rm --name reairss-demo-ci \
+            -p 8000:8000 \
+            -e APP_DB_PATH=/data/app.db \
+            -v /tmp/reairss-demo-data:/data \
+            reairss-demo-ci
+
+      - name: Wait for backend health
+        run: |
+          for i in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:8000/health >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs reairss-demo-ci
+          exit 1
+
+      - name: Run demo smoke checks
+        run: python scripts/demo_smoke.py --base-url http://127.0.0.1:8000
+
+      - name: Dump logs on failure
+        if: failure()
+        run: docker logs reairss-demo-ci
+
+      - name: Stop demo backend
+        if: always()
+        run: docker rm -f reairss-demo-ci

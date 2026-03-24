@@ -1,6 +1,21 @@
 ## reairss — 微信小程序 RSS × AI 阅读助手（V1 Demo）
 
-参见：`docs/prd1.0.md`（产品/一期最小计划）、`docs/API和DB设计.md`（接口与DB规范）。
+参见：`docs/prd1.0.md`（产品/一期最小计划）、`docs/API和DB设计.md`（接口与DB规范）、`docs/demo-baseline.md`（当前 Demo 基线与可复现联调说明）。
+
+本地 Demo 最短路径：
+
+- `make demo-up-fresh`
+- `make demo-smoke`
+
+仓库已补充 GitHub Actions smoke workflow：`.github/workflows/demo-smoke.yml`
+
+## 开发说明（当前 Demo 基线）
+
+- 开发联调入口文档：`docs/demo-baseline.md`
+- 本地起后端：`make demo-up-fresh`
+- 本地跑回归：`make demo-smoke`
+- Docker 镜像当前按“后端 Demo 服务”构建，`.dockerignore` 已排除小程序、设计文档和本地运行态文件
+- 真机联调时，`api_base_url` 不能写 `127.0.0.1`，应改成开发机局域网 IP 或测试环境地址
 
 ---
 
