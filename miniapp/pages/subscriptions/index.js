@@ -1,5 +1,4 @@
-const { getSources } = require("../../utils/mock");
-const { getSubscribedIds, unsubscribe } = require("../../utils/subscriptions");
+const { listSubscriptions, unsubscribeSource } = require("../../utils/api");
 const { setFeedSourceFilter } = require("../../utils/feedFilter");
 
 Page({
@@ -27,15 +26,28 @@ Page({
   },
 
   onShow() {
-    this.setData({ themeClass: this.data.theme === "dark" ? "theme-dark" : "theme-light" });
+    const app = getApp();
+    const snap = (app.getThemeSnapshot && app.getThemeSnapshot()) || {};
+    this.setData({
+      theme: snap.theme || "light",
+      themeMode: snap.mode || "system",
+      themeClass: (snap.theme || "light") === "dark" ? "theme-dark" : "theme-light"
+    });
     this.refresh();
   },
 
-  refresh() {
-    const ids = getSubscribedIds();
-    const sources = getSources();
-    const subscribedSources = sources.filter((s) => ids.includes(s.id));
-    this.setData({ subscribedIds: ids, subscribedSources, showEmpty: subscribedSources.length === 0 });
+  async refresh() {
+    try {
+      const subscribedSources = await listSubscriptions();
+      this.setData({
+        subscribedIds: subscribedSources.map((item) => item.id),
+        subscribedSources,
+        showEmpty: subscribedSources.length === 0
+      });
+    } catch (err) {
+      this.setData({ subscribedIds: [], subscribedSources: [], showEmpty: true });
+      wx.showToast({ title: "加载失败", icon: "none" });
+    }
   },
 
   goDiscover() {
@@ -60,8 +72,7 @@ Page({
       confirmColor: "#E5484D",
       success: (res) => {
         if (!res.confirm) return;
-        unsubscribe(id);
-        this.refresh();
+        unsubscribeSource(id).then(() => this.refresh());
       }
     });
   }

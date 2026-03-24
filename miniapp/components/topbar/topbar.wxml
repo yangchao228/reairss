@@ -7,13 +7,13 @@
     <view class="topbar__left topbar__left--empty" wx:else></view>
 
     <view class="topbar__center">
-      <text class="h1 line1">{{title}}</text>
+      <text class="topbar__title line1">{{title}}</text>
     </view>
 
-    <view class="topbar__right" wx:if="{{rightText}}" bindtap="onRightTap">
-      <text class="meta">{{rightText}}</text>
+    <view class="topbar__right topbar__right--active" wx:if="{{rightText}}" bindtap="onRightTap">
+      <text class="topbar__action">{{rightText}}</text>
     </view>
-    <view class="topbar__right" wx:else></view>
+    <view class="topbar__right topbar__right--empty" wx:else></view>
   </view>
   <view class="divider"></view>
 </view>

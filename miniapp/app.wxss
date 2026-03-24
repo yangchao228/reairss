@@ -41,6 +41,15 @@ scroll-view {
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);
+  --topbar-horizontal-padding: 16px;
+  --topbar-touch-height: 44px;
+  --topbar-side-min-width: 56px;
+  --topbar-title-size: 18px;
+  --topbar-title-line-height: 24px;
+  --topbar-action-size: 12px;
+  --topbar-action-line-height: 16px;
+  --topbar-back-size: 22px;
+  --topbar-back-line-height: 22px;
 }
 
 .container {

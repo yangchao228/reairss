@@ -1,5 +1,4 @@
-const { getFeed } = require("../../utils/mock");
-const { getSubscribedIds } = require("../../utils/subscriptions");
+const { listFeed, listSubscriptions } = require("../../utils/api");
 const { consumeFeedSourceFilter } = require("../../utils/feedFilter");
 
 Page({
@@ -24,7 +23,7 @@ Page({
     loading: true,
     loadingMore: false,
     items: [],
-    cursor: 0,
+    cursor: "",
     hasMore: false,
 
     showEmptyNoSubs: false,
@@ -47,8 +46,13 @@ Page({
   },
 
   onShow() {
-    const { theme } = this.data;
-    this.setData({ themeClass: theme === "dark" ? "theme-dark" : "theme-light" });
+    const app = getApp();
+    const snap = (app.getThemeSnapshot && app.getThemeSnapshot()) || {};
+    this.setData({
+      theme: snap.theme || "light",
+      themeMode: snap.mode || "system",
+      themeClass: (snap.theme || "light") === "dark" ? "theme-dark" : "theme-light"
+    });
     const filter = consumeFeedSourceFilter();
     if (filter && filter.sourceId) {
       this.setData({ sourceId: filter.sourceId, sourceName: filter.sourceName || "" });
@@ -104,51 +108,60 @@ Page({
   },
 
   async reload() {
-    this.setData({ loading: true, loadingMore: false, items: [], cursor: 0, hasMore: false });
+    this.setData({ loading: true, loadingMore: false, items: [], cursor: "", hasMore: false });
 
-    const subscribedSourceIds = getSubscribedIds();
-    const hasSubscriptions = subscribedSourceIds.length > 0;
-    this.setData({ hasSubscriptions });
-    this.syncComputed({ hasSubscriptions, loading: true, items: [], sourceId: this.data.sourceId });
-    if (!hasSubscriptions && !this.data.sourceId) {
-      this.setData({ loading: false });
+    try {
+      const subscriptions = await listSubscriptions();
+      const hasSubscriptions = subscriptions.length > 0;
+      this.setData({ hasSubscriptions });
+      this.syncComputed({ hasSubscriptions, loading: true, items: [], sourceId: this.data.sourceId });
+      if (!hasSubscriptions && !this.data.sourceId) {
+        this.setData({ loading: false });
+        this.syncComputed({ loading: false, items: [], sourceId: this.data.sourceId });
+        return;
+      }
+
+      const res = await listFeed({
+        timeRange: this.data.timeRange,
+        cursor: "",
+        limit: 20,
+        sourceId: this.data.sourceId
+      });
+
+      this.setData({
+        loading: false,
+        items: res.items,
+        cursor: res.next_cursor,
+        hasMore: res.has_more
+      });
+      this.syncComputed({ loading: false, items: res.items, sourceId: this.data.sourceId });
+    } catch (err) {
+      this.setData({ loading: false, items: [], hasMore: false, cursor: "" });
       this.syncComputed({ loading: false, items: [], sourceId: this.data.sourceId });
-      return;
+      wx.showToast({ title: "加载失败", icon: "none" });
     }
-
-    const res = getFeed({
-      subscribedSourceIds,
-      timeRange: this.data.timeRange,
-      cursor: 0,
-      limit: 20,
-      sourceId: this.data.sourceId
-    });
-
-    this.setData({
-      loading: false,
-      items: res.items,
-      cursor: res.next_cursor,
-      hasMore: res.has_more
-    });
-    this.syncComputed({ loading: false, items: res.items, sourceId: this.data.sourceId });
   },
 
   async loadMore() {
     this.setData({ loadingMore: true });
-    const subscribedSourceIds = getSubscribedIds();
-    const res = getFeed({
-      subscribedSourceIds,
-      timeRange: this.data.timeRange,
-      cursor: this.data.cursor,
-      limit: 20,
-      sourceId: this.data.sourceId
-    });
-    this.setData({
-      loadingMore: false,
-      items: [...this.data.items, ...res.items],
-      cursor: res.next_cursor,
-      hasMore: res.has_more
-    });
-    this.syncComputed({ items: [...this.data.items, ...res.items] });
+    try {
+      const res = await listFeed({
+        timeRange: this.data.timeRange,
+        cursor: this.data.cursor,
+        limit: 20,
+        sourceId: this.data.sourceId
+      });
+      const nextItems = [...this.data.items, ...res.items];
+      this.setData({
+        loadingMore: false,
+        items: nextItems,
+        cursor: res.next_cursor,
+        hasMore: res.has_more
+      });
+      this.syncComputed({ items: nextItems });
+    } catch (err) {
+      this.setData({ loadingMore: false });
+      wx.showToast({ title: "加载失败", icon: "none" });
+    }
   }
 });

@@ -1,4 +1,4 @@
-const { getContentById } = require("../../utils/mock");
+const { getContentDetail } = require("../../utils/api");
 
 Page({
   data: {
@@ -10,15 +10,19 @@ Page({
     domain: ""
   },
 
-  onLoad(options) {
+  async onLoad(options) {
     const app = getApp();
     const snap = (app.getThemeSnapshot && app.getThemeSnapshot()) || {};
-    const content = getContentById(options && options.id);
     this.setData({
       nav: app.globalData.nav,
       theme: snap.theme || "light",
       themeMode: snap.mode || "system",
       themeClass: (snap.theme || "light") === "dark" ? "theme-dark" : "theme-light",
+      url: "",
+      domain: ""
+    });
+    const content = await getContentDetail(options && options.id);
+    this.setData({
       url: (content && content.link_url) || "",
       domain: (content && content.domain) || ""
     });

@@ -1,5 +1,4 @@
-const { getSources } = require("../../utils/mock");
-const { getSubscribedIds, subscribe, unsubscribe } = require("../../utils/subscriptions");
+const { listSources, subscribeSource, unsubscribeSource } = require("../../utils/api");
 
 function buildCategories(sources) {
   const cats = Array.from(new Set(sources.map((s) => s.category))).filter(Boolean);
@@ -25,25 +24,42 @@ Page({
   onLoad() {
     const app = getApp();
     const snap = (app.getThemeSnapshot && app.getThemeSnapshot()) || {};
-    const sources = getSources();
     this.setData({
       nav: app.globalData.nav,
       theme: snap.theme || "light",
       themeMode: snap.mode || "system",
       themeClass: (snap.theme || "light") === "dark" ? "theme-dark" : "theme-light",
-      sources,
-      categories: buildCategories(sources),
-      subscribedIds: getSubscribedIds()
+      sources: [],
+      categories: [{ label: "全部", value: "all" }],
+      subscribedIds: []
     });
-    this.applyFilter();
+    this.loadSources();
   },
 
   onShow() {
+    const app = getApp();
+    const snap = (app.getThemeSnapshot && app.getThemeSnapshot()) || {};
     this.setData({
-      subscribedIds: getSubscribedIds(),
-      themeClass: this.data.theme === "dark" ? "theme-dark" : "theme-light"
+      theme: snap.theme || "light",
+      themeMode: snap.mode || "system",
+      themeClass: (snap.theme || "light") === "dark" ? "theme-dark" : "theme-light"
     });
-    this.applyFilter();
+    this.loadSources();
+  },
+
+  async loadSources() {
+    try {
+      const sources = await listSources();
+      const subscribedIds = sources.filter((item) => item.subscribed).map((item) => item.id);
+      this.setData({
+        sources,
+        categories: buildCategories(sources),
+        subscribedIds
+      });
+      this.applyFilter();
+    } catch (err) {
+      wx.showToast({ title: "加载失败", icon: "none" });
+    }
   },
 
   onSearchInput(e) {
@@ -73,7 +89,7 @@ Page({
     this.setData({ filtered: withSubscribed, showEmpty: withSubscribed.length === 0 });
   },
 
-  onToggleSubscribe(e) {
+  async onToggleSubscribe(e) {
     const { id, subscribed } = e.detail || {};
     if (!id) return;
 
@@ -83,19 +99,17 @@ Page({
         content: "取消后，该源内容将从阅读流中隐藏。",
         confirmText: "取消订阅",
         confirmColor: "#E5484D",
-        success: (res) => {
+        success: async (res) => {
           if (!res.confirm) return;
-          unsubscribe(id);
-          this.setData({ subscribedIds: getSubscribedIds() });
-          this.applyFilter();
+          await unsubscribeSource(id);
+          await this.loadSources();
         }
       });
       return;
     }
 
-    subscribe(id);
-    this.setData({ subscribedIds: getSubscribedIds() });
-    this.applyFilter();
+    await subscribeSource(id);
+    await this.loadSources();
   },
   onRowTap(e) {
     const id = e.detail && e.detail.id;

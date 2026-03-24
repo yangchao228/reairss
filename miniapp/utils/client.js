@@ -1,5 +1,8 @@
-const BASE_URL = "https://your-api.example.com";
 const APP_VERSION = "1.0.0";
+
+function getBaseUrl() {
+  return wx.getStorageSync("api_base_url") || "http://127.0.0.1:8000";
+}
 
 function getDeviceId() {
   let deviceId = wx.getStorageSync("device_id");
@@ -22,7 +25,7 @@ function getSessionId() {
 function request({ url, method = "GET", data = {}, header = {} }) {
   return new Promise((resolve, reject) => {
     wx.request({
-      url: `${BASE_URL}${url}`,
+      url: `${getBaseUrl()}${url}`,
       method,
       data,
       header: {
@@ -33,7 +36,18 @@ function request({ url, method = "GET", data = {}, header = {} }) {
         "X-Session-Id": getSessionId(),
         ...header,
       },
-      success: (res) => resolve(res.data),
+      success: (res) => {
+        const payload = res.data || {};
+        if (res.statusCode >= 400) {
+          reject(payload);
+          return;
+        }
+        if (payload.code && payload.code !== 0) {
+          reject(payload);
+          return;
+        }
+        resolve(payload.data || {});
+      },
       fail: (err) => reject(err),
     });
   });
