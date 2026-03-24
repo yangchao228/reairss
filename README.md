@@ -8,10 +8,12 @@
 - `make demo-smoke`
 
 仓库已补充 GitHub Actions smoke workflow：`.github/workflows/demo-smoke.yml`
+大版本完整验证 workflow：`.github/workflows/full-validation.yml`
 
 ## 开发说明（当前 Demo 基线）
 
 - 开发联调入口文档：`docs/demo-baseline.md`
+- 大版本提交前可本地先跑：`make full-check`
 - 本地起后端：`make demo-up-fresh`
 - 本地跑回归：`make demo-smoke`
 - Docker 镜像当前按“后端 Demo 服务”构建，`.dockerignore` 已排除小程序、设计文档和本地运行态文件

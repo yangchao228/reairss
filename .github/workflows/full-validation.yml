@@ -1,0 +1,65 @@
+name: Full Validation
+
+on:
+  push:
+    branches:
+      - "v*"
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  full-validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run static checks
+        run: make full-check
+
+      - name: Build demo image
+        run: docker build -t reairss-full-validation .
+
+      - name: Start demo backend
+        run: |
+          mkdir -p /tmp/reairss-full-validation
+          rm -f /tmp/reairss-full-validation/app.db
+          docker run -d --rm --name reairss-full-validation \
+            -p 8000:8000 \
+            -e APP_DB_PATH=/data/app.db \
+            -v /tmp/reairss-full-validation:/data \
+            reairss-full-validation
+
+      - name: Wait for backend health
+        run: |
+          for i in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:8000/health >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs reairss-full-validation
+          exit 1
+
+      - name: Run demo smoke checks
+        run: python3 scripts/demo_smoke.py --base-url http://127.0.0.1:8000
+
+      - name: Dump logs on failure
+        if: failure()
+        run: docker logs reairss-full-validation
+
+      - name: Stop demo backend
+        if: always()
+        run: docker rm -f reairss-full-validation
